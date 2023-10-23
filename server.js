@@ -29,8 +29,9 @@ app.get('/', (req,res) =>{
   res.send("all quiet on the western front");
 });
 
-app.get('/participants/:room', async (req, res) =>{
+app.get('/participants/:room', async (req, res, err) =>{
   const livekitHost = 'https://map-me-ascii-4bdqi7ia.livekit.cloud';
+  try{
 const roomService = new RoomServiceClient(livekitHost, process.env.LK_API_KEY, process.env.LK_API_SECRET);
 const rooms = await roomService.listRooms();
 if(rooms.some((r, i) => r.name == req.params.room)){
@@ -41,6 +42,10 @@ if(rooms.some((r, i) => r.name == req.params.room)){
 else{
   res.send({"code": 404, "message": "Room not found"});
 }
+  }
+  catch(e){
+    res.send({"code": e.code, "message": e.message});
+  }
   
 });
 
