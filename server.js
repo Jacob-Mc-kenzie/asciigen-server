@@ -2,6 +2,7 @@
 import express from 'express';
 import {AccessToken, RoomServiceClient, Room} from'livekit-server-sdk';
 import "dotenv/config.js";
+import cors from 'cors';
 
 
 const createToken = (room,ident) => {
@@ -21,6 +22,7 @@ const createToken = (room,ident) => {
 }
 
 const app = express();
+app.use(cors());
 const port = 3000;
 
 app.get('/getToken/:room/:ident', (req, res) => {
