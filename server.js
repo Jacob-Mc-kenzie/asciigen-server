@@ -1,6 +1,8 @@
 // server.js
 import express from 'express';
 import {AccessToken, RoomServiceClient, Room} from'livekit-server-sdk';
+import "dotenv/config.js";
+
 
 const createToken = (room,ident) => {
   // if this room doesn't exist, it'll be automatically created when the first
@@ -49,6 +51,6 @@ else{
   
 });
 
-app.listen(port, () => {
+app.listen(process.env.PORT, () => {
   console.log(`Server listening on port ${port}`)
 })
